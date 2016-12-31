@@ -1,13 +1,18 @@
 package com.example.rgbcircle;
 
+import android.app.Fragment;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
 public class GameManager {
 
-
+    FragmentManager manager;
+    FragmentTransaction transaction;
+    android.support.v4.app.Fragment fragment;
     private static int width;
     private static int height;
     private CanvasView canvasView;
@@ -83,7 +88,7 @@ public class GameManager {
                     calculateAndSetCircleColor();
                     break;
                 }else {
-                    gameEnd("YUO LOOSE!!!");
+                    gameEnd("YOU LOOSE!!!");
                     return;
                 }
             }
@@ -93,11 +98,13 @@ public class GameManager {
         }
         if (circles.isEmpty()){
             gameEnd("YOU WIN!!!");
+
         }
     }
 
     private void gameEnd(String text) {
-        canvasView.showMessage(text);
+//        canvasView.showMessage(text);
+        canvasView.showDialog(text);
         mainCircle.initRadius();
         initEnemyCircles();
         canvasView.reDraw();
@@ -108,4 +115,5 @@ public class GameManager {
             circle.moveOnStep();
         }
     }
+
 }

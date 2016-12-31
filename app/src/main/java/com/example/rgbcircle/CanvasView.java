@@ -1,6 +1,8 @@
 package com.example.rgbcircle;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -68,6 +70,7 @@ public class CanvasView extends View implements ICanvasView{
 
     @Override
     public void showMessage(String text) {
+
         if(toast!=null){
             toast.cancel();
         }
@@ -75,6 +78,28 @@ public class CanvasView extends View implements ICanvasView{
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }
+    @Override
+    public void showDialog(String text){
+//        MainActivity activity =new MainActivity();
+//        Context context=activity.getBaseContext();
+//        Context context=activity.getApplicationContext();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(text)
+                .setMessage("Click")
+                .setIcon(android.R.drawable.btn_star)
+                .setCancelable(false)
+                .setNegativeButton("Ok!",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+
+    }
+
 
     @Override
     public int recalculateRadius(int radius) {
@@ -92,4 +117,6 @@ public class CanvasView extends View implements ICanvasView{
         return true;
 //        return super.onFilterTouchEventForSecurity(event);
     }
+
+
 }
